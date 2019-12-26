@@ -1,0 +1,8 @@
+deb {{ debian.mirror }} {{ debian.codename }} {{ debian.components }}
+deb-src {{ debian.mirror }} {{ debian.codename }} {{ debian.components }}
+
+deb http://security.debian.org/ {{ debian.codename }}/updates {{ debian.components }}
+deb-src http://security.debian.org/ {{ debian.codename }}/updates {{ debian.components }}
+
+deb {{ debian.mirror }} {{ debian.codename }}-updates {{ debian.components }}
+deb-src {{ debian.mirror }} {{ debian.codename }}-updates {{ debian.components }}
