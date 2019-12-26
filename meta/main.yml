@@ -1,0 +1,26 @@
+galaxy_info:
+  author: Vincent Chov
+  description: Role to set up apt repos for Debian, Linux Mint, and Linux Mint Debian, and then install from them
+  company: N/A
+
+  license: GPL-3.0-or-later
+
+  min_ansible_version: 2.6
+
+  platforms:
+    - name: Debian
+      versions:
+        - 10
+    - name: Linux Mint
+      versions:
+        - 19.x
+    - name: Linux Mint Debian Edition
+      versions:
+        - 3
+
+  galaxy_tags:
+    - Debian
+    - Linux Mint
+    - Linux Mint Debian Edition
+
+dependencies: []
