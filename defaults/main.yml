@@ -1,2 +1,13 @@
 ---
-# defaults file for packages
+debian:
+  codename: buster
+  mirror: http://debian.csail.mit.edu/debian/
+  components: main contrib non-free
+
+lmde:
+  codename: asdf
+  debian_codename: stretch
+
+mint:
+  codename: tricia
+  ubuntu_codename: bionic
