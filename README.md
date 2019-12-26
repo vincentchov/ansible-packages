@@ -1,38 +1,66 @@
-Role Name
-=========
+ansible-packages
+================
 
-A brief description of the role goes here.
+This role allows you to specify how to add APT repos and which packages
+to install for Debian, Linux Mint, and Linux Mint Debian Edition.
+The primary use-case would be for when you're setting up a new desktop
+computer and would like to install some applications that you can't just
+`apt install` right away.
+
+This role is originally intended for my own personal use and is used on
+localhost (directly on the computer intended to be set-up.  It currently
+targets Debian Buster (stable), Linux Mint 19.3, and Linux Mint Debian
+Edition 3.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Debian 10, Linux Mint 19.3, or Linux Mint Debian Edition 3 on the target
+machine.
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+The variables in `defaults/main.yml` outline APT configuration information
+for the Linux distributions I intend to support (distro codename, repo
+mirror URLs, etc).
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+Currently none.
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+Assuming you have your variable overrides in a
+`vars_files/vincentchov.packages/overrides.yml` file, and assuming you have
+a "local" hosts group set up as:
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+```ini
+[local]
+localhost ansible_connection=local
+```
+
+Example playbook:
+
+```yaml
+---
+- hosts: local
+  become: true
+  roles:
+     - vincentchov.packages
+  vars_files:
+     - vars_files/vincentchov.packages/overrides.yml
+```
 
 License
 -------
 
-BSD
+GPL-3.0 or later
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+My name is Vincent Chov and my personal website is at
+[vincentchov.com](https://www.vincentchov.com).
