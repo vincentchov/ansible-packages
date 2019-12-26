@@ -1,2 +1,9 @@
 ---
-# tasks file for packages
+- include: Debian.yml
+  when: "'Debian' in ansible_lsb['description']"
+
+- include: LMDE.yml
+  when: "'LMDE' in ansible_lsb['description']"
+
+- include: Mint.yml
+  when: "'Mint' in ansible_lsb['description']"
