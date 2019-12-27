@@ -8,29 +8,9 @@
     mode: 0644
     backup: yes
 
-- name: "Install apt-keys by URL"
-  apt_key:
-    url: "{{ item.key.url }}"
-  loop: "{{ apt_packages.from_url | default([]) }}"
+- name: "Set default distro codename for adding repos"
+  set_fact:
+    default_codename: "{{ debian.codename }}"
 
-- name: "Install apt-keys by ID from a keyserver"
-  apt_key:
-    id: "{{ item.key.id }}"
-    keyserver: "{{ item.key.keyserver }}"
-  loop: "{{ apt_packages.from_keyserver | default([]) }}"
-
-- name: "Add all repos"
-  apt_repository:
-    repo: "{{ item.repo.url }} {{ item.repo.codename | default(debian.codename) }} {{ item.repo.components }}"
-    filename: "{{ item.name | lower | replace(' ', '-')}}"
-    update_cache: no
-  loop: "{{ apt_packages.from_url + apt_packages.from_keyserver }}"
-
-- name: "Update apt cache"
-  apt:
-    update_cache: yes
-
-- name: "Install all of the packages"
-  apt:
-    name: "{{ item.package }}"
-  loop: "{{ apt_packages.from_url + apt_packages.from_keyserver }}"
+- name: "Add all repos and their keys, and install packages"
+  include_tasks: add_debian_repos_and_packages.yml
