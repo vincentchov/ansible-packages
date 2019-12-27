@@ -3,12 +3,16 @@
   apt_key:
     url: "{{ item.key.url }}"
   loop: "{{ apt_packages.from_url | default([]) }}"
+  loop_control:
+    label: "'{{ item.name }}'"
 
 - name: "Install apt-keys by ID from a keyserver"
   apt_key:
     id: "{{ item.key.id }}"
     keyserver: "{{ item.key.keyserver }}"
   loop: "{{ apt_packages.from_keyserver | default([]) }}"
+  loop_control:
+    label: "'{{ item.name }}'"
 
 - name: "Add all repos"
   apt_repository:
@@ -16,6 +20,8 @@
     filename: "{{ item.name | lower | replace(' ', '-')}}"
     update_cache: no
   loop: "{{ apt_packages.from_url + apt_packages.from_keyserver }}"
+  loop_control:
+    label: "'{{ item.name }}'"
 
 - name: "Update apt cache"
   apt:
@@ -25,3 +31,5 @@
   apt:
     name: "{{ item.package }}"
   loop: "{{ apt_packages.from_url + apt_packages.from_keyserver }}"
+  loop_control:
+    label: "'{{ item.package }}'"
