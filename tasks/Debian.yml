@@ -21,7 +21,8 @@
 
 - name: "Add all repos"
   apt_repository:
-    repo: "{{ item.repo }}"
+    repo: "{{ item.repo.url }} {{ item.repo.codename | default(debian.codename) }} {{ item.repo.components }}"
+    filename: "{{ item.name | lower | replace(' ', '-')}}"
     update_cache: no
   loop: "{{ apt_packages.from_url + apt_packages.from_keyserver }}"
 
