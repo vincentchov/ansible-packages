@@ -14,3 +14,8 @@
 
 - name: "Add all repos and their keys, and install packages"
   include_tasks: add_debian_repos_and_packages.yml
+
+- name: "Install packages already in Debian repos"
+  apt:
+    name: "{{ item }}"
+  loop: "{{ apt_packages.ready_to_install }}"
