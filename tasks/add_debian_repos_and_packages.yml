@@ -33,3 +33,9 @@
   loop: "{{ apt_packages.from_url + apt_packages.from_keyserver }}"
   loop_control:
     label: "'{{ item.package }}'"
+
+- name: "Install packages that have to downloaded with wget"
+  include: wget_deb_and_install.yml
+  loop: "{{ apt_packages.with_wget | default([]) }}"
+  loop_control:
+    label: "'{{ item.package }}'"

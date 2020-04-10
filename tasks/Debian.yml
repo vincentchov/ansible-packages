@@ -18,4 +18,9 @@
 - name: "Install packages already in Debian repos"
   apt:
     name: "{{ item }}"
-  loop: "{{ apt_packages.ready_to_install }}"
+  loop: "{{ apt_packages.ready_to_install | default([]) }}"
+
+- name: "Install packages available as snaps"
+  snap:
+    name: "{{ item.package }}"
+  loop: "{{ snap_packages | default([]) }}"
